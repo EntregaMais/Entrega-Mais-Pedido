@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -46,19 +47,16 @@ public class PedidoController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+    @RequestMapping(value = "/pedidosPorIdTransportadora/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> getByIdTransportadora (@PathVariable(value = "id") Long id) {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorIdTransportadora(id);
+        List<Pedido> pedidosReal = pedidos.stream().map(x -> x.get()).collect(Collectors.toList());
 
-
-//    @RequestMapping(value = "/pedidosPorIdTransportadora/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<List<Pedido>> GetByIdTransportadora (@PathVariable(value = "id") Long id)
-//    {
-//        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorIdTransportadora(id);
-//
-//        if(!pedidos.isEmpty())
-//            return new ResponseEntity<List<Pedido>>(pedidos.stream().toList(), HttpStatus.OK);
-//        else
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-//
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 //    @RequestMapping(value = "/pedidosPorEstadoEIdTransportadora/{id}", method = RequestMethod.GET)
 //    public ResponseEntity<List<Pedido>> GetByEstadoAndIdTransportadora (@PathVariable(value = "id") Long id)
 //    {
