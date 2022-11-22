@@ -24,7 +24,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/pedido")
 public class PedidoController {
-    
+    @GetMapping("/ping")
+    public String ping() {
+        return "Pong";
+    }
     @Autowired
     private PedidoService pedidoService;
 
@@ -43,6 +46,7 @@ public class PedidoController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
 
 //    @RequestMapping(value = "/pedidosPorIdTransportadora/{id}", method = RequestMethod.GET)
 //    public ResponseEntity<List<Pedido>> GetByIdTransportadora (@PathVariable(value = "id") Long id)
