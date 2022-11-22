@@ -17,22 +17,27 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
     @Cacheable("pedidoatual")
     public Optional<Pedido> encontraPedidoPorId(Long id){
         return pedidoRepository.findById(id);
     }
+
     @Cacheable("pedidoatual")
     public List<Optional<Pedido>> encontraPedidoPorIdTransportadora(Long idTransportadora){
         return pedidoRepository.findByIdTransportadora(idTransportadora);
     }
+
     @Cacheable("pedidoatual")
     public List<Optional<Pedido>> encontraPedidoPorEstadoEIdTransportadora(String estado, Long idTransportadora){
         return pedidoRepository.findByEstadoAndIdTransportadora(estado,idTransportadora);
     }
+
     @Cacheable("pedidoatual")
     public List<Optional<Pedido>> encontraPedidoPorCidadeEIdTransportadora(String cidade, Long idTransportadora){
         return pedidoRepository.findByCidadeAndIdTransportadora(cidade, idTransportadora);
     }
+
     @Cacheable("pedidoatual")
     public List<Optional<Pedido>> encontraPedidoPorEstadoECidadeEIdTransportadora(String estado, String cidade, Long idTransportadora){
         return pedidoRepository.findByEstadoAndCidadeAndIdTransportadora(estado, cidade, idTransportadora);
@@ -53,7 +58,6 @@ public class PedidoService {
 
             pedidoExistente.setFrete(pedido_atualizado.getFrete());
             pedidoExistente.setValorTotal(pedido_atualizado.getValorTotal());
-            pedidoExistente.setFormaPag(pedido_atualizado.getFormaPag());
             pedidoExistente.setNmCliente(pedido_atualizado.getNmCliente());
             pedidoExistente.setEstado(pedido_atualizado.getEstado());
             pedidoExistente.setCidade(pedido_atualizado.getCidade());

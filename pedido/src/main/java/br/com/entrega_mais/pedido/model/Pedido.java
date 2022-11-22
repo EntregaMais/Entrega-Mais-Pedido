@@ -36,8 +36,6 @@ public class Pedido implements Serializable {
 
     private BigDecimal valorTotal;
 
-    private String formaPag;
-
     private String nmCliente;
 
     private String estado;
