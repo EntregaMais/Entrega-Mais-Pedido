@@ -5,6 +5,7 @@ import br.com.entrega_mais.pedido.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -18,39 +19,39 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @Cacheable("pedidoatual")
+	@Cacheable(cacheNames = "Pedido", key="#id")
     public Optional<Pedido> encontraPedidoPorId(Long id){
         return pedidoRepository.findById(id);
     }
 
-    @Cacheable("pedidoatual")
+	@Cacheable(cacheNames = "Pedido", key="#idTransportadora")
     public List<Optional<Pedido>> encontraPedidoPorIdTransportadora(Long idTransportadora){
         return pedidoRepository.findByIdTransportadora(idTransportadora);
     }
 
-    @Cacheable("pedidoatual")
+
     public List<Optional<Pedido>> encontraPedidoPorEstadoEIdTransportadora(String estado, Long idTransportadora){
         return pedidoRepository.findByEstadoAndIdTransportadora(estado,idTransportadora);
     }
 
-    @Cacheable("pedidoatual")
+
     public List<Optional<Pedido>> encontraPedidoPorCidadeEIdTransportadora(String cidade, Long idTransportadora){
         return pedidoRepository.findByCidadeAndIdTransportadora(cidade, idTransportadora);
     }
 
-    @Cacheable("pedidoatual")
     public List<Optional<Pedido>> encontraPedidoPorEstadoECidadeEIdTransportadora(String estado, String cidade, Long idTransportadora){
         return pedidoRepository.findByEstadoAndCidadeAndIdTransportadora(estado, cidade, idTransportadora);
     }
 
-    @CacheEvict("pedidoatual")
+
     @Transactional
+	@CacheEvict(cacheNames = "Pedido", allEntries = true)
     public Pedido salvarPedido (Pedido pedido){
         return pedidoRepository.save(pedido);
     }
 
     @Transactional
-    @CacheEvict("pedidoatual")
+	@CacheEvict(cacheNames = "Pedido", allEntries = true)
     public Pedido atualizarPedido(Long id, Pedido pedido_atualizado) {
 
         if (pedidoRepository.findById(id).isPresent()){
