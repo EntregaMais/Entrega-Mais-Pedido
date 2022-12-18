@@ -141,7 +141,7 @@ public class PedidoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/pedidoEdicao/{id}/")
+    @PostMapping("/pedidoEdicao/{id}")
     public ResponseEntity<Pedido> editar (@PathVariable(value = "id") Long id, @RequestBody Pedido pedido){
 
         Pedido pedidoAtualizada = pedidoService.atualizarPedido(id, pedido);
