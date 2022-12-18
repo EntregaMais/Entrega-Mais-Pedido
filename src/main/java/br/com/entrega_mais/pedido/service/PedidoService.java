@@ -24,38 +24,38 @@ public class PedidoService {
         return pedidoRepository.findById(id);
     }
 
-	@Cacheable(cacheNames = "Pedido", key="#idTransportadora")
-    public List<Optional<Pedido>> encontraPedidoPorIdTransportadora(Long idTransportadora){
+	//@Cacheable(cacheNames = "Pedido", key="#idTransportadora")
+    public List<Optional<Pedido>> encontraPedidosPorIdTransportadora(Long idTransportadora){
         return pedidoRepository.findByIdTransportadora(idTransportadora);
     }
 
 
-    public List<Optional<Pedido>> encontraPedidoPorEstadoEIdTransportadora(String estado, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorEstadoEIdTransportadora(String estado, Long idTransportadora){
         return pedidoRepository.findByEstadoAndIdTransportadora(estado,idTransportadora);
     }
 
 
-    public List<Optional<Pedido>> encontraPedidoPorCidadeEIdTransportadora(String cidade, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorCidadeEIdTransportadora(String cidade, Long idTransportadora){
         return pedidoRepository.findByCidadeAndIdTransportadora(cidade, idTransportadora);
     }
 
-    public List<Optional<Pedido>> encontraPedidoPorEstadoECidadeEIdTransportadora(String estado, String cidade, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorEstadoECidadeEIdTransportadora(String estado, String cidade, Long idTransportadora){
         return pedidoRepository.findByEstadoAndCidadeAndIdTransportadora(estado, cidade, idTransportadora);
     }
 
-    public List<Optional<Pedido>> encontraPedidoPorStatusEIdTransportadora(String status, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorStatusEIdTransportadora(String status, Long idTransportadora){
         return pedidoRepository.findByStatusAndIdTransportadora(status, idTransportadora);
     }
 
-    public List<Optional<Pedido>> encontraPedidoPorFormaPagEIdTransportadora(String formaPag, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorFormaPagEIdTransportadora(String formaPag, Long idTransportadora){
         return pedidoRepository.findByFormaPagAndIdTransportadora(formaPag, idTransportadora);
     }
 
-    public List<Optional<Pedido>> encontraPedidoPorIdVeiculoEIdTransportadora(Long idVeiculo, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorIdVeiculoEIdTransportadora(Long idVeiculo, Long idTransportadora){
         return pedidoRepository.findByIdVeiculoAndIdTransportadora(idVeiculo, idTransportadora);
     }
 
-    public List<Optional<Pedido>> encontraPedidoPorIdDespachanteEIdTransportadora(Long idDespachante, Long idTransportadora){
+    public List<Optional<Pedido>> encontraPedidosPorIdDespachanteEIdTransportadora(Long idDespachante, Long idTransportadora){
         return pedidoRepository.findByIdDespachanteAndIdTransportadora(idDespachante, idTransportadora);
     }
 
