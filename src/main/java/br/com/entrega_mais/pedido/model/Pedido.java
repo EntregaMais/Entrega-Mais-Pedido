@@ -36,16 +36,26 @@ public class Pedido implements Serializable {
 
     private BigDecimal valorTotal;
 
-    private String nmCliente;
-
     private String estado;
 
     private String cidade;
 
-    private String observacao;
-
     private int fornPagouFrete;
 
     private String quemPagaTaxa;
+
+    private String nmCliente;
+
+    private String telefoneCli;
+
+    private String emailCli;
+
+    private String formaPag;
+
+    private String status;
+
+    private Long idVeiculo;
+
+    private Long idDespachante;
 
 }

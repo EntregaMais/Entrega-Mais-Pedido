@@ -43,6 +43,22 @@ public class PedidoService {
         return pedidoRepository.findByEstadoAndCidadeAndIdTransportadora(estado, cidade, idTransportadora);
     }
 
+    public List<Optional<Pedido>> encontraPedidoPorStatusEIdTransportadora(String status, Long idTransportadora){
+        return pedidoRepository.findByStatusAndIdTransportadora(status, idTransportadora);
+    }
+
+    public List<Optional<Pedido>> encontraPedidoPorFormaPagEIdTransportadora(String formaPag, Long idTransportadora){
+        return pedidoRepository.findByFormaPagAndIdTransportadora(formaPag, idTransportadora);
+    }
+
+    public List<Optional<Pedido>> encontraPedidoPorIdVeiculoEIdTransportadora(Long idVeiculo, Long idTransportadora){
+        return pedidoRepository.findByIdVeiculoAndIdTransportadora(idVeiculo, idTransportadora);
+    }
+
+    public List<Optional<Pedido>> encontraPedidoPorIdDespachanteEIdTransportadora(Long idDespachante, Long idTransportadora){
+        return pedidoRepository.findByIdDespachanteAndIdTransportadora(idDespachante, idTransportadora);
+    }
+
 
     @Transactional
 	@CacheEvict(cacheNames = "Pedido", allEntries = true)
@@ -59,12 +75,17 @@ public class PedidoService {
 
             pedidoExistente.setFrete(pedido_atualizado.getFrete());
             pedidoExistente.setValorTotal(pedido_atualizado.getValorTotal());
-            pedidoExistente.setNmCliente(pedido_atualizado.getNmCliente());
             pedidoExistente.setEstado(pedido_atualizado.getEstado());
             pedidoExistente.setCidade(pedido_atualizado.getCidade());
-            pedidoExistente.setObservacao(pedido_atualizado.getObservacao());
             pedidoExistente.setFornPagouFrete(pedido_atualizado.getFornPagouFrete());
             pedidoExistente.setQuemPagaTaxa(pedido_atualizado.getQuemPagaTaxa());
+            pedidoExistente.setNmCliente(pedido_atualizado.getNmCliente());
+            pedidoExistente.setTelefoneCli(pedido_atualizado.getTelefoneCli());
+            pedidoExistente.setEmailCli(pedido_atualizado.getEmailCli());
+            pedidoExistente.setFormaPag(pedido_atualizado.getFormaPag());
+            pedidoExistente.setStatus(pedido_atualizado.getStatus());
+            pedidoExistente.setIdVeiculo(pedido_atualizado.getIdVeiculo());
+            pedidoExistente.setIdDespachante(pedido_atualizado.getIdDespachante());
 
             Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistente);
 

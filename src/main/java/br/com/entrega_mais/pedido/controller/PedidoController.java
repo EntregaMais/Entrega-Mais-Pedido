@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/pedido")
 public class PedidoController {
+
     @GetMapping("/ping")
     public String ping() {
         return "Pong";
@@ -41,11 +42,9 @@ public class PedidoController {
     @RequestMapping(value = "/pedidoPorId/{id}", method = RequestMethod.GET)
     public ResponseEntity<Pedido> GetById (@PathVariable(value = "id") Long id) {
         Optional<Pedido> pedido = pedidoService.encontraPedidoPorId(id);
-        if(pedido.isPresent())
-            return new ResponseEntity<Pedido>(pedido.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return pedido.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
     @RequestMapping(value = "/pedidosPorIdTransportadora/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Pedido>> getByIdTransportadora (@PathVariable(value = "id") Long id) {
         List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorIdTransportadora(id);
@@ -94,6 +93,53 @@ public class PedidoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/pedidoPorStatusEIdTransportadora/{status}/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByStatusAndIdTransportadora (@PathVariable(value = "status") String status, @PathVariable(value = "id") Long idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorStatusEIdTransportadora(status, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/pedidoPorFormaPagEIdTransportadora/{formapag}/{transportadora}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByFormaPagAndIdTransportadora ( @PathVariable(value = "formapag") String formapag, @PathVariable(value = "id") Long idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorFormaPagEIdTransportadora(formapag, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/pedidoPorIdVeiculoEIdTransportadora/{veiculo}/{transportadora}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByIdVeiculoAndIdTransportadora (@PathVariable(value = "veiculo") Long idVeiculo, @PathVariable(value = "transportadora") Long  idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorIdVeiculoEIdTransportadora(idVeiculo, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/pedidoPorIdDespachanteEIdTransportadora/{despachante}/{transportadora}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByDespachanteAndIdTransportadora (@PathVariable(value = "despachante") Long idDespachante, @PathVariable(value = "transportadora") Long idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidoPorIdDespachanteEIdTransportadora(idDespachante, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @PostMapping("/pedidoEdicao/{id}/")
     public ResponseEntity<Pedido> editar (@PathVariable(value = "id") Long id, @RequestBody Pedido pedido){
@@ -112,7 +158,6 @@ public class PedidoController {
     public ResponseEntity<String> testandoAPi() {
         return ResponseEntity.ok("ok");
     }
-
 
 
 }
