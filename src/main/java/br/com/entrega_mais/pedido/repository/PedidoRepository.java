@@ -20,4 +20,7 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Optional<Pedido>> findByFormaPagAndIdTransportadora(String formaPag, Long idTransportadora);
     List<Optional<Pedido>> findByIdVeiculoAndIdTransportadora(Long idVeiculo, Long idTransportadora);
     List<Optional<Pedido>> findByIdDespachanteAndIdTransportadora(Long idDespachante, Long idTransportadora);
+    List<Optional<Pedido>> findByEndUfAndIdTransportadora(String endUf, Long idTransportadora);
+    List<Optional<Pedido>> findByEndCidadeAndIdTransportadora(String endUf, Long idTransportadora);
+
 }

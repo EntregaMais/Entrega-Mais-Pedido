@@ -59,6 +59,15 @@ public class PedidoService {
         return pedidoRepository.findByIdDespachanteAndIdTransportadora(idDespachante, idTransportadora);
     }
 
+    public List<Optional<Pedido>> encontraPedidosPorEndUfEIdTransportadora(String endUf, Long idTransportadora){
+        return pedidoRepository.findByEndUfAndIdTransportadora(endUf, idTransportadora);
+    }
+
+
+    public List<Optional<Pedido>> encontraPedidosPorEndCidadeEIdTransportadora(String endCidade, Long idTransportadora){
+        return pedidoRepository.findByEndCidadeAndIdTransportadora(endCidade, idTransportadora);
+    }
+
 
     @Transactional
 	@CacheEvict(cacheNames = "Pedido", allEntries = true)
@@ -84,7 +93,14 @@ public class PedidoService {
             pedidoExistente.setEmailCli(pedido_atualizado.getEmailCli());
             pedidoExistente.setFormaPag(pedido_atualizado.getFormaPag());
             pedidoExistente.setStatus(pedido_atualizado.getStatus());
-            pedidoExistente.setIdVeiculo(pedido_atualizado.getIdVeiculo());
+            pedidoExistente.setEndCep(pedido_atualizado.getEndCep());
+            pedidoExistente.setEndRua(pedido_atualizado.getEndRua());
+            pedidoExistente.setEndCidade(pedido_atualizado.getEndCidade());
+            pedidoExistente.setEndBairro(pedido_atualizado.getEndBairro());
+            pedidoExistente.setEndUf(pedido_atualizado.getEndUf());
+            pedidoExistente.setEndNumResid(pedido_atualizado.getEndNumResid());
+            pedidoExistente.setEndComp(pedido_atualizado.getEndComp());
+            pedidoExistente.setEndRef(pedido_atualizado.getEndRef());
             pedidoExistente.setIdDespachante(pedido_atualizado.getIdDespachante());
 
             Pedido pedidoAtualizado = pedidoRepository.save(pedidoExistente);

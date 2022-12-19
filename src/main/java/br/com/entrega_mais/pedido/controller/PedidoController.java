@@ -141,6 +141,31 @@ public class PedidoController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @RequestMapping(value = "/pedidosPorUfEIdTransportadora/{uf}/{transportadora}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByEndUfAndIdTransportadora (@PathVariable(value = "uf") String endUf, @PathVariable(value = "transportadora") Long idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidosPorEndUfEIdTransportadora(endUf, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+    @RequestMapping(value = "/pedidosPorCidadeEIdTransportadora/{cidade}/{transportadora}", method = RequestMethod.GET)
+    public ResponseEntity<List<Pedido>> GetByEndCidadeAndIdTransportadora (@PathVariable(value = "cidade") String endCidade, @PathVariable(value = "transportadora") Long idTransportadora)
+    {
+        List<Optional<Pedido>> pedidos = pedidoService.encontraPedidosPorEndCidadeEIdTransportadora(endCidade, idTransportadora);
+        List<Pedido> pedidosReal = pedidos.stream().map(Optional::get).collect(Collectors.toList());
+
+        if(!pedidos.isEmpty())
+            return new ResponseEntity<>(pedidosReal, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PostMapping("/pedidoEdicao/{id}")
     public ResponseEntity<Pedido> editar (@PathVariable(value = "id") Long id, @RequestBody Pedido pedido){
 

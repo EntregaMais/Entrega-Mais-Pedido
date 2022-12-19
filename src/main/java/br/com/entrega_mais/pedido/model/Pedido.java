@@ -54,6 +54,22 @@ public class Pedido implements Serializable {
 
     private String status;
 
+    private String endCep;
+
+    private String endRua;
+
+    private String endCidade;
+
+    private String endBairro;
+
+    private String endUf;
+
+    private String endNumResid;
+
+    private Stirng EndComp;
+
+    private String endRef;
+
     private Long idVeiculo;
 
     private Long idDespachante;
