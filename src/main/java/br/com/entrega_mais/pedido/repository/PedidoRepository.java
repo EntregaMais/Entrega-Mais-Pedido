@@ -16,5 +16,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
     List<Optional<Pedido>> findByEstadoAndIdTransportadora(String estado, Long idTransportadora);
     List<Optional<Pedido>> findByCidadeAndIdTransportadora(String cidade, Long idTransportadora);
     List<Optional<Pedido>> findByEstadoAndCidadeAndIdTransportadora(String estado, String cidade, Long idTransportadora);
-
+    List<Optional<Pedido>> findByStatusAndIdTransportadora(String status, Long idTransportadora);
+    List<Optional<Pedido>> findByFormaPagAndIdTransportadora(String formaPag, Long idTransportadora);
+    List<Optional<Pedido>> findByIdVeiculoAndIdTransportadora(Long idVeiculo, Long idTransportadora);
+    List<Optional<Pedido>> findByIdDespachanteAndIdTransportadora(Long idDespachante, Long idTransportadora);
 }
