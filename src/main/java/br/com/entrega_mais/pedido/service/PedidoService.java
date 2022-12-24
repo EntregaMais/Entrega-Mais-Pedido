@@ -24,7 +24,7 @@ public class PedidoService {
         return pedidoRepository.findById(id);
     }
 
-	//@Cacheable(cacheNames = "Pedido", key="#idTransportadora")
+
     public List<Optional<Pedido>> encontraPedidosPorIdTransportadora(Long idTransportadora){
         return pedidoRepository.findByIdTransportadora(idTransportadora);
     }
